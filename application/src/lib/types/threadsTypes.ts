@@ -1,5 +1,5 @@
 import { Message, MessageStatus } from "./messagesTypes";
-import { THREAD_STATUS_VALUES } from "../consts/threadsConts";
+import { THREAD_STATUS_VALUES } from "../consts/threadsConsts";
 
 export interface ThreadsParams {
   page: number;

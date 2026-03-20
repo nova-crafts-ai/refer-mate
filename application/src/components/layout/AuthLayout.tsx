@@ -1,19 +1,8 @@
-import { useSignIn } from "@clerk/clerk-react";
-import React from "react";
-import { Link } from "react-router";
 import { Loader } from "@/components/ui/loader";
+import { useSignIn } from "@clerk/clerk-react";
+import { Link, Outlet } from "react-router";
 
-interface AuthLayoutProps {
-  children: React.ReactNode;
-  title: string;
-  subtitle: string;
-}
-
-export default function AuthLayout({
-  children,
-  title,
-  subtitle,
-}: AuthLayoutProps) {
+export default function AuthLayout() {
   const { isLoaded } = useSignIn();
 
   const loader = (
@@ -33,11 +22,7 @@ export default function AuthLayout({
         </Link>
       </div>
       <div className="w-full max-w-sm space-y-6">
-        <div className="flex flex-col space-y-2 text-center">
-          <h1 className="text-2xl font-semibold tracking-tight">{title}</h1>
-          <p className="text-sm text-muted-foreground">{subtitle}</p>
-        </div>
-        {!isLoaded ? loader : children}
+        {!isLoaded ? loader : <Outlet />}
       </div>
     </div>
   );

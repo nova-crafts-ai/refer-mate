@@ -1,7 +1,7 @@
 import DataGrid from "@/components/function/data-grid";
 import { useThreads } from "@/hooks/threads/useThreadData";
 import { useDebounce } from "@/hooks/useDebounce";
-import { THREAD_STATUS_VALUES } from "@/lib/consts/threadsConts";
+import { THREAD_STATUS_VALUES } from "@/lib/consts/threadsConsts";
 import { ThreadStatus } from "@/lib/types/threadsTypes";
 import { useState } from "react";
 import Header from "./Header";

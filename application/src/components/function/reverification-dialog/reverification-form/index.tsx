@@ -1,9 +1,20 @@
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { Loader } from "@/components/ui/loader";
 import { useReverificationActions } from "@/hooks/auth/useReverificationActions";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle } from "lucide-react";
-import React from "react";
-import OTPInput from "../../commons/OTPInput";
+import { Controller, useForm } from "react-hook-form";
+import * as z from "zod";
+
+const reverificationFormSchema = z.object({
+  code: z.string().length(6, "Code must have 6 digits"),
+});
 
 interface ReverificationFormProps {
   code: string;
@@ -19,9 +30,14 @@ const ReverificationForm = ({
   onCancel,
 }: ReverificationFormProps) => {
   const { sendCode, verify } = useReverificationActions();
+  const form = useForm({
+    resolver: zodResolver(reverificationFormSchema),
+    defaultValues: { code: "" },
+  });
 
-  const handleVerify = async (e?: React.FormEvent) => {
-    e?.preventDefault();
+  const onSubmit = async ({
+    code,
+  }: z.infer<typeof reverificationFormSchema>) => {
     verify.mutate(
       { code },
       {
@@ -42,19 +58,33 @@ const ReverificationForm = ({
   const isLoading = sendCode.isPending || verify.isPending;
 
   return (
-    <form onSubmit={handleVerify} className="space-y-6">
-      {(sendCode.error || verify.error) && (
-        <div className="bg-destructive/10 text-destructive text-sm p-3 rounded-md flex items-center gap-2">
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      {form.formState.isSubmitted && !form.formState.isValid && (
+        <Alert variant="destructive">
           <AlertCircle className="w-4 h-4 shrink-0" />
-          {sendCode.error?.message || verify.error?.message || ""}
-        </div>
+          <AlertTitle>
+            {Object.values(form.formState.errors)?.[0]?.message}
+          </AlertTitle>
+        </Alert>
       )}
 
       <div className="flex justify-center py-2">
-        <OTPInput
-          value={code}
-          onChange={(code) => onChangeCode(code)}
+        <Controller
           disabled={isLoading}
+          name="code"
+          control={form.control}
+          render={({ field }) => (
+            <InputOTP maxLength={6} {...field}>
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
+          )}
         />
       </div>
       <div className="flex flex-col gap-3">

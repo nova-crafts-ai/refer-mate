@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { ThreadService } from "@/services/threadService";
 import { Thread, ThreadsMeta, ThreadStatus } from "@/lib/types/threadsTypes";
 import { toast } from "sonner";
-import { HUMAN_READABLE_STATUS } from "@/lib/consts/threadsConts";
+import { HUMAN_READABLE_STATUS } from "@/lib/consts/threadsConsts";
 import { threadKeys } from "./threadsQueryKeys";
 
 interface UpdateStatusVariables {

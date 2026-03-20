@@ -15,9 +15,14 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { ThreadsMeta } from "@/lib/types/threadsTypes";
 import { cn } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
+import { Info, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router";
 
 interface OutreachTableProps {
@@ -70,7 +75,18 @@ const OutreachTable = ({ threads, isLoading }: OutreachTableProps) => {
           <TableHead>Name</TableHead>
           <TableHead>Company</TableHead>
           <TableHead>Status</TableHead>
-          <TableHead>Automated</TableHead>
+          <TableHead className="flex gap-1.5 items-center h-full">
+            Automated
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </TooltipTrigger>
+              <TooltipContent>
+                Threads marked as automated will be managed by the system and
+                will be followed up in 3 days.
+              </TooltipContent>
+            </Tooltip>
+          </TableHead>
           <TableHead>Last Activity</TableHead>
           <TableHead className="text-center pr-6">Actions</TableHead>
         </TableRow>

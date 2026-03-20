@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useGoogle } from "./useGoogleData";
 import {
+  isClerkAPIResponseError,
   isClerkRuntimeError,
   isReverificationCancelledError,
 } from "@clerk/clerk-react/errors";
@@ -114,7 +115,7 @@ export const useAuthActions = () => {
 
   const signInWithGoogle = useMutation({
     mutationFn: async () => {
-      signIn?.authenticateWithRedirect({
+      await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
         redirectUrl: "/sso-callback",
         redirectUrlComplete: "/dashboard",
@@ -123,9 +124,6 @@ export const useAuthActions = () => {
     onError: (err) => {
       console.error("Failed to sign in with google", err);
       toast.error("Could not sign in with Google. Please try again later");
-    },
-    onSuccess: () => {
-      toast.success("Successfully signed in with Google");
     },
   });
 
@@ -148,13 +146,13 @@ export const useAuthActions = () => {
     },
     onError: (err) => {
       console.error("Failed to sign in", err);
-      if (isClerkRuntimeError(err)) {
-        if (err.code === "strategy_for_user_invalid") {
+      if (isClerkAPIResponseError(err)) {
+        if (err.errors[0].code === "strategy_for_user_invalid") {
           toast.error(
             "Password is not set for this account. Please use a different method to sign in",
           );
         } else {
-          toast.error(err.longMessage);
+          toast.error(err.errors[0].longMessage);
         }
       } else {
         toast.error("Could not sign in. Please try again later.");
@@ -172,7 +170,7 @@ export const useAuthActions = () => {
     },
     onError: (err) => {
       console.error("Failed to start Signup process", err);
-      if (isClerkRuntimeError(err)) {
+      if (isClerkAPIResponseError(err)) {
         toast.error(err.longMessage);
       } else {
         toast.error("Something went wrong. Please try again later");
@@ -197,7 +195,7 @@ export const useAuthActions = () => {
     },
     onError: (err) => {
       console.error("Failed to sign up", err);
-      if (isClerkRuntimeError(err)) {
+      if (isClerkAPIResponseError(err)) {
         toast.error(err.longMessage || "Invalid verification code");
       } else {
         toast.error(
