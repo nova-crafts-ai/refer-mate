@@ -1,5 +1,5 @@
-import { Link, useLocation } from 'react-router';
-import { cn } from '@/lib/utils';
+import { Link, useLocation } from "react-router";
+import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
   Send,
@@ -8,10 +8,10 @@ import {
   LogOut,
   HelpCircle,
   ChevronsUpDown,
-  FileText
-} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { SignedIn, useClerk, useUser } from '@clerk/clerk-react';
+  FileText,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { SignedIn, useClerk, useUser } from "@clerk/clerk-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,11 +19,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import FullLogo from "../function/FullLogo";
 
 export function Sidebar({ className }: { className?: string }) {
   const location = useLocation();
@@ -32,35 +29,30 @@ export function Sidebar({ className }: { className?: string }) {
 
   const routes = [
     {
-      label: 'Dashboard',
+      label: "Dashboard",
       icon: LayoutDashboard,
-      href: '/dashboard',
-      active: location.pathname === '/dashboard',
+      href: "/dashboard",
+      active: location.pathname === "/dashboard",
     },
     {
-      label: 'Outreach',
+      label: "Outreach",
       icon: Send,
-      href: '/outreach',
-      active: location.pathname === '/outreach',
+      href: "/outreach",
+      active: location.pathname === "/outreach",
     },
     {
-      label: 'Drafts',
+      label: "Drafts",
       icon: FileText,
-      href: '/drafts',
-      active: location.pathname === '/drafts',
-    }
+      href: "/drafts",
+      active: location.pathname === "/drafts",
+    },
   ];
 
   return (
     <div className={cn("pb-12 min-h-screen", className)}>
       <div className="space-y-4 py-6">
         <div className="px-3 py-2">
-          <Link to="/" className="flex items-center gap-2 px-4 mb-8">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl">
-              O
-            </div>
-            <span className="text-xl font-bold tracking-tight">Outreach</span>
-          </Link>
+          <FullLogo to="/" />
           <div className="space-y-1">
             {routes.map((route) => (
               <Button
@@ -68,12 +60,19 @@ export function Sidebar({ className }: { className?: string }) {
                 variant={route.active ? "secondary" : "ghost"}
                 className={cn(
                   "w-full justify-start h-10 mb-1",
-                  route.active && "bg-secondary font-medium"
+                  route.active && "bg-secondary font-medium",
                 )}
                 asChild
               >
                 <Link to={route.href}>
-                  <route.icon className={cn("h-4 w-4 mr-2", route.active ? "text-foreground" : "text-muted-foreground")} />
+                  <route.icon
+                    className={cn(
+                      "h-4 w-4 mr-2",
+                      route.active
+                        ? "text-foreground"
+                        : "text-muted-foreground",
+                    )}
+                  />
                   {route.label}
                 </Link>
               </Button>
@@ -85,13 +84,20 @@ export function Sidebar({ className }: { className?: string }) {
       <div className="absolute bottom-4 left-0 w-full px-4">
         <SignedIn>
           <DropdownMenu>
-            <DropdownMenuTrigger className='w-full'>
-              <Button variant="ghost" className="w-full justify-start h-14 px-2 hover:bg-muted/50 rounded-xl group">
+            <DropdownMenuTrigger className="w-full">
+              <Button
+                variant="ghost"
+                className="w-full justify-start h-14 px-2 hover:bg-muted/50 rounded-xl group"
+              >
                 <div className="flex items-center gap-3 w-full">
                   <Avatar className="h-9 w-9 border border-border/40">
-                    <AvatarImage src={user?.imageUrl} alt={user?.fullName || "User"} />
+                    <AvatarImage
+                      src={user?.imageUrl}
+                      alt={user?.fullName || "User"}
+                    />
                     <AvatarFallback className="bg-primary/10 text-primary font-medium">
-                      {user?.firstName?.charAt(0) || user?.emailAddresses[0]?.emailAddress?.charAt(0)}
+                      {user?.firstName?.charAt(0) ||
+                        user?.emailAddresses[0]?.emailAddress?.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
                   <div className="flex flex-col items-start text-left flex-1 min-w-0">
@@ -106,7 +112,11 @@ export function Sidebar({ className }: { className?: string }) {
                 </div>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent side="top" align="center" className="w-56 rounded-xl p-2 mb-2">
+            <DropdownMenuContent
+              side="top"
+              align="center"
+              className="w-56 rounded-xl p-2 mb-2"
+            >
               <DropdownMenuItem asChild className="rounded-lg cursor-pointer">
                 <Link to="/profile">
                   <User className="mr-2 h-4 w-4" />
@@ -124,7 +134,10 @@ export function Sidebar({ className }: { className?: string }) {
                 <span>Help</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator className="my-1" />
-              <DropdownMenuItem onClick={() => signOut()} className="rounded-lg cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10">
+              <DropdownMenuItem
+                onClick={() => signOut()}
+                className="rounded-lg cursor-pointer text-destructive focus:text-destructive focus:bg-destructive/10"
+              >
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Sign out</span>
               </DropdownMenuItem>

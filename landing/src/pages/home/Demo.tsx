@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import DashboardImg from "@/assets/images/dashboard.png"
 
 export default function Demo() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -55,7 +56,7 @@ export default function Demo() {
             <div className="aspect-[16/10] w-full bg-background flex items-center justify-center p-1 pt-12">
               <div className="relative w-full h-full group">
                 <img
-                  src="/dashboard.png"
+                  src={DashboardImg}
                   alt="Dashboard Preview"
                   className="w-full h-full object-contain shadow-sm transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                 />

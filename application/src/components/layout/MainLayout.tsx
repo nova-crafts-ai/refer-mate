@@ -3,6 +3,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { Sidebar } from "./Sidebar";
 import { Outlet } from "react-router";
+import FullLogo from "../function/FullLogo";
 
 const MainLayout = () => {
   return (
@@ -19,12 +20,7 @@ const MainLayout = () => {
       <div className="flex-1 flex flex-col md:pl-64 min-h-screen transition-all duration-300 ease-in-out">
         {/* Mobile Header */}
         <header className="md:hidden sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 h-16 flex items-center px-4 justify-between">
-          <div className="flex items-center gap-2 font-bold text-xl">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-              O
-            </div>
-            <span>Outreach</span>
-          </div>
+          <FullLogo />
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">

@@ -28,15 +28,17 @@ export default function Header() {
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled
           ? "bg-background/80 backdrop-blur-md border-b border-border py-3"
-          : "bg-transparent py-5"
+          : "bg-transparent py-5",
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between relative">
-        <a href="#" className="flex items-center gap-2 font-bold text-xl">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground">
-            O
+        <a href="#" className="flex items-center gap-3">
+          <div className="h-10 max-h-10 pt-1.5 mb-1.5 overflow-hidden">
+            <img className="h-full w-auto" src="/refer-mate-square.png" />
           </div>
-          <span>Outreach</span>
+          <div className="h-10 max-h-10 overflow-hidden p-1 mb-1.5">
+            <img className="h-full w-auto" src="/refer-mate-full.png" />
+          </div>
         </a>
 
         {/* Desktop Navigation
