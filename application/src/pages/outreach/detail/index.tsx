@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate, useParams } from "react-router";
 import { DetailsAndActions } from "./details-and-actions";
 import { EmailThread } from "./EmailThread";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 const OutreachDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -13,7 +14,7 @@ const OutreachDetailPage: React.FC = () => {
   const { data, isLoading, error } = useThread(parsedId);
 
   if (!id || isNaN(parsedId)) {
-    navigate("/dashboard");
+    navigate(ROUTES.DASHBOARD.fullPath);
     return null;
   }
 
@@ -32,7 +33,7 @@ const OutreachDetailPage: React.FC = () => {
           Failed to load outreach details.
         </div>
         <button
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate(ROUTES.DASHBOARD.fullPath)}
           className="text-primary hover:underline"
         >
           Return to Dashboard

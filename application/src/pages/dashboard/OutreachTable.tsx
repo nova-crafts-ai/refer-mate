@@ -24,6 +24,7 @@ import { ThreadsMeta } from "@/lib/types/threadsTypes";
 import { cn } from "@/lib/utils";
 import { Info, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 interface OutreachTableProps {
   threads: ThreadsMeta["threads"];
@@ -109,7 +110,9 @@ const OutreachTable = ({ threads, isLoading }: OutreachTableProps) => {
                 "relative group hover:bg-muted/70 border-border/40 cursor-pointer",
                 needsAttention(thread) ? "bg-green-100 hover:bg-green-200" : "",
               )}
-              onClick={() => navigate(`/outreach/view/${thread.id}`)}
+              onClick={() =>
+                navigate(ROUTES.OUTREACH.DETAIL.getFullPath(String(thread.id)))
+              }
             >
               {tableCells.map((cell) => (
                 <TableCell className={cn(cell.className)}>

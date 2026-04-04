@@ -11,6 +11,7 @@ import { useProfile } from "@/hooks/profile/useProfileData";
 import { Experience, Skill } from "@/lib/types/profileTypes";
 import { useNavigate } from "react-router";
 import Layout from "../Layout";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 // TODO:
 // 1. On click of edit on any data, edit form should open there itself and not at the bottom
@@ -55,7 +56,7 @@ export default function ProfessionalInfoPage() {
       },
       {
         onSuccess: () => {
-          navigate("/dashboard");
+          navigate(ROUTES.DASHBOARD.fullPath);
         },
       },
     );
@@ -97,7 +98,7 @@ export default function ProfessionalInfoPage() {
           variant="outline"
           className="flex-1 rounded-full"
           onClick={() => {
-            navigate("/onboarding/basic-info");
+            navigate(ROUTES.ONBOARDING.BASIC_INFO.fullPath);
           }}
         >
           Back

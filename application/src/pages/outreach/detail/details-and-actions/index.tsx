@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router";
 import Details from "./Details";
 import Actions from "./actions";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 export const DetailsAndActions = ({ id }: PropsWithId) => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export const DetailsAndActions = ({ id }: PropsWithId) => {
       <div className="pl-2">
         <Button
           variant="link"
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate(ROUTES.DASHBOARD.fullPath)}
           className="text-muted-foreground -ml-4"
         >
           <ArrowLeft className="w-4 h-4 mr-1 -ml-1" />

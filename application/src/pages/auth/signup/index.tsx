@@ -14,6 +14,7 @@ import { Link } from "react-router";
 import AuthOptionsDivider from "../AuthOptionsDivider";
 import SignupWithPasswordForm from "./SignupWithPasswordForm";
 import VerifySignUpCodeForm from "./VerifySignUpCodeForm";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 export default function SignupPage() {
   const [pendingVerification, setPendingVerification] = useState(false);
@@ -66,7 +67,7 @@ export default function SignupPage() {
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link
-            to="/login"
+            to={ROUTES.LOGIN.fullPath}
             className="text-primary font-semibold hover:underline underline-offset-4"
           >
             Sign in

@@ -3,6 +3,7 @@ import { useSignIn, useSignUp, useUser } from "@clerk/clerk-react";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useGoogle } from "./useGoogleData";
+import { ROUTES } from "@/lib/consts/routesConsts";
 import {
   isClerkAPIResponseError,
   isClerkRuntimeError,
@@ -117,8 +118,8 @@ export const useAuthActions = () => {
     mutationFn: async () => {
       await signIn?.authenticateWithRedirect({
         strategy: "oauth_google",
-        redirectUrl: "/sso-callback",
-        redirectUrlComplete: "/dashboard",
+        redirectUrl: ROUTES.SSO_CALLBACK.fullPath,
+        redirectUrlComplete: ROUTES.DASHBOARD.fullPath,
       });
     },
     onError: (err) => {
@@ -142,7 +143,7 @@ export const useAuthActions = () => {
     },
     onSuccess: () => {
       toast.success("Sign in successfull");
-      navigate(state?.appRedirectUrl || "/dashboard");
+      navigate(state?.appRedirectUrl || ROUTES.DASHBOARD.fullPath);
     },
     onError: (err) => {
       console.error("Failed to sign in", err);
@@ -191,7 +192,7 @@ export const useAuthActions = () => {
       await setActiveFromSignUp?.({ session: signUpResult.createdSessionId });
     },
     onSuccess: () => {
-      navigate("/dashboard");
+      navigate(ROUTES.DASHBOARD.fullPath);
     },
     onError: (err) => {
       console.error("Failed to sign up", err);

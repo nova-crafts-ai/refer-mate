@@ -6,6 +6,7 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { EmailEditor } from "./EmailEditor";
 import { useMessage } from "@/hooks/messages/useMessageData";
 import { useMessageActions } from "@/hooks/messages/useMessageActions";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 const EmailPreviewPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,9 +27,11 @@ const EmailPreviewPage: React.FC = () => {
 
   const handleBack = () => {
     if (state.type) {
-      navigate(`/outreach/recipient-info?template=${state.type}`);
+      navigate(
+        `${ROUTES.OUTREACH.RECIPIENT_INFO.fullPath}?template=${state.type}`,
+      );
     } else {
-      navigate(`/outreach/templates`);
+      navigate(ROUTES.OUTREACH.TEMPLATES.fullPath);
     }
   };
 
@@ -40,7 +43,7 @@ const EmailPreviewPage: React.FC = () => {
       subject: subject,
       body: body,
     });
-    navigate(`/outreach/send/${id}`);
+    navigate(ROUTES.OUTREACH.SEND.getFullPath(String(id)));
   };
 
   if (!id) {

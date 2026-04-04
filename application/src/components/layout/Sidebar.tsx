@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SignedIn, useClerk, useUser } from "@clerk/clerk-react";
+import { ROUTES } from "@/lib/consts/routesConsts";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,20 +32,20 @@ export function Sidebar({ className }: { className?: string }) {
     {
       label: "Dashboard",
       icon: LayoutDashboard,
-      href: "/dashboard",
-      active: location.pathname === "/dashboard",
+      href: ROUTES.DASHBOARD.fullPath,
+      active: location.pathname === ROUTES.DASHBOARD.fullPath,
     },
     {
       label: "Outreach",
       icon: Send,
-      href: "/outreach",
-      active: location.pathname === "/outreach",
+      href: ROUTES.OUTREACH.TEMPLATES.fullPath,
+      active: location.pathname.startsWith("/outreach"),
     },
     {
       label: "Drafts",
       icon: FileText,
-      href: "/drafts",
-      active: location.pathname === "/drafts",
+      href: ROUTES.DRAFTS.fullPath,
+      active: location.pathname === ROUTES.DRAFTS.fullPath,
     },
   ];
 
@@ -118,13 +119,13 @@ export function Sidebar({ className }: { className?: string }) {
               className="w-56 rounded-xl p-2 mb-2"
             >
               <DropdownMenuItem asChild className="rounded-lg cursor-pointer">
-                <Link to="/profile">
+                <Link to={ROUTES.PROFILE.fullPath}>
                   <User className="mr-2 h-4 w-4" />
                   <span>Profile</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild className="rounded-lg cursor-pointer">
-                <Link to="/settings">
+                <Link to={ROUTES.SETTINGS.fullPath}>
                   <Settings className="mr-2 h-4 w-4" />
                   <span>Settings</span>
                 </Link>

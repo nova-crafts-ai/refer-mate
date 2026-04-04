@@ -7,6 +7,7 @@ import { useNavigate, useSearchParams } from "react-router";
 import { toast } from "sonner";
 import { templates } from "../select-template";
 import { RecipientForm } from "./RecipientForm";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 export interface FormData {
   employeeName?: string;
@@ -92,7 +93,7 @@ const RecipientInfoPage: React.FC = () => {
   useEffect(() => {
     if (!templateType || !templates.some((t) => t.id === templateType)) {
       toast.error("Template ID is missing. Please start over.");
-      navigate("/outreach/templates");
+      navigate(ROUTES.OUTREACH.TEMPLATES.fullPath);
     }
   }, [navigate, templateType]);
 
@@ -113,7 +114,7 @@ const RecipientInfoPage: React.FC = () => {
         <Button
           variant="outline"
           size="lg"
-          onClick={() => navigate("/outreach/templates")}
+          onClick={() => navigate(ROUTES.OUTREACH.TEMPLATES.fullPath)}
         >
           <ArrowLeft className="w-4 h-4 mr-1 -ml-1" />
           Back

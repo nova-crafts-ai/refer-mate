@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { EmailPreviewStatic } from "./EmailPreviewStatic";
 import { SendEmailOptions } from "./send-email-options";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 const SendEmailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,14 +22,14 @@ const SendEmailPage: React.FC = () => {
       setAlreadySent(true);
       toast.success("Email Already Sent!");
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate(ROUTES.DASHBOARD.fullPath);
       }, 3000);
     }
   }, [draft, navigate, alreadySent]);
 
   if (!id) {
     toast.info("No ID found. Redirecting to start.");
-    navigate("/outreach/templates");
+    navigate(ROUTES.OUTREACH.TEMPLATES.fullPath);
     return null;
   }
 

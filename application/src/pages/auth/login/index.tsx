@@ -10,6 +10,7 @@ import {
 import { Link } from "react-router";
 import AuthOptionsDivider from "../AuthOptionsDivider";
 import LoginWithPasswordForm from "./LoginWithPasswordForm";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 export default function LoginPage() {
   return (
@@ -29,7 +30,7 @@ export default function LoginPage() {
         <p className="text-sm text-muted-foreground">
           Don't have an account?{" "}
           <Link
-            to="/signup"
+            to={ROUTES.SIGNUP.fullPath}
             className="text-primary font-semibold hover:underline underline-offset-4"
           >
             Sign up

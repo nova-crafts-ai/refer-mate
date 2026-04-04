@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import CopyToClipboardButton from "./CopyToClipboardButton";
 import ManageFollowUps from "./ManageFollowUps";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 interface SendEmailOptionsProps {
   id: number;
@@ -33,7 +34,7 @@ export const SendEmailOptions = ({ id }: SendEmailOptionsProps) => {
           id={id}
           manageThread={manageThread}
           onSend={() => {
-            setTimeout(() => navigate("/dashboard"), 3000);
+            setTimeout(() => navigate(ROUTES.DASHBOARD.fullPath), 3000);
           }}
         />
       </div>
@@ -68,14 +69,14 @@ export const SendEmailOptions = ({ id }: SendEmailOptionsProps) => {
       <div className="flex flex-col justify-center items-center gap-1">
         <Button
           variant="ghost"
-          onClick={() => navigate(`/outreach/preview/${id}`)}
+          onClick={() => navigate(ROUTES.OUTREACH.PREVIEW.getFullPath(String(id)))}
           className="w-full"
         >
           Back to Edit
         </Button>
         <Button
           variant="outline"
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate(ROUTES.DASHBOARD.fullPath)}
           className="w-full"
         >
           Go to Dashboard

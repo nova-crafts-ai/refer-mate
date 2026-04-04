@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 import { TemplateCard } from "./TemplateCard";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 export interface Template {
   id: string;
@@ -37,7 +38,9 @@ const SelectTemplatePage: React.FC = () => {
       toast.error("Please select a template.");
       return;
     }
-    navigate(`/outreach/recipient-info?template=${selectedTemplate.id}`);
+    navigate(
+      `${ROUTES.OUTREACH.RECIPIENT_INFO.fullPath}?template=${selectedTemplate.id}`,
+    );
   };
 
   return (

@@ -7,6 +7,7 @@ import { useUser } from "@clerk/clerk-react";
 import { formatDistanceToNow } from "date-fns";
 import DOMPurify from "dompurify";
 import { useNavigate } from "react-router";
+import { ROUTES } from "@/lib/consts/routesConsts";
 
 export const EmailThread = ({ id }: PropsWithId) => {
   const { data: thread } = useThread(id);
@@ -42,7 +43,7 @@ export const EmailThread = ({ id }: PropsWithId) => {
             })}
             onClick={() => {
               if (isDraft) {
-                navigate(`/outreach/preview/${email.id}`);
+                navigate(ROUTES.OUTREACH.PREVIEW.getFullPath(String(email.id)));
               }
             }}
           >
