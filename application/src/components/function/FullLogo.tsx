@@ -7,10 +7,7 @@ interface FullLogoProps {
   className?: string;
 }
 
-const FullLogo = ({
-  to = ROUTES.DASHBOARD.fullPath,
-  className,
-}: FullLogoProps) => {
+const FullLogo = ({ to, className }: FullLogoProps) => {
   if (!to) {
     return (
       <div
