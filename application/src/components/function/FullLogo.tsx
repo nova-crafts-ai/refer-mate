@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { Link } from "react-router";
-import { ROUTES } from "@/lib/consts/routesConsts";
 
 interface FullLogoProps {
   to?: string;

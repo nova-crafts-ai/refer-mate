@@ -1,23 +1,23 @@
-import { useAuth } from '@clerk/clerk-react';
-import axios, { AxiosInstance } from 'axios';
-import { useMemo } from 'react';
-import { useNavigate } from 'react-router';
+import { useAuth } from "@clerk/clerk-react";
+import axios, { AxiosInstance } from "axios";
+import { useMemo } from "react";
+import { useNavigate } from "react-router";
 
 export const useAPIClient = (): AxiosInstance => {
-  const { getToken } = useAuth();
+  const { getToken, signOut } = useAuth();
   const navigate = useNavigate();
 
   const client = useMemo(() => {
     const baseURL = import.meta.env.VITE_BACKEND_BASE_URL;
 
     if (!baseURL) {
-      throw new Error('VITE_BACKEND_BASE_URL is not defined');
+      throw new Error("VITE_BACKEND_BASE_URL is not defined");
     }
 
     const instance = axios.create({
       baseURL,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
 
@@ -25,7 +25,7 @@ export const useAPIClient = (): AxiosInstance => {
       async (config) => {
         const token = await getToken();
         if (!token) {
-          navigate('/login');
+          navigate("/login");
           return Promise.reject("No auth token");
         }
 
@@ -34,23 +34,25 @@ export const useAPIClient = (): AxiosInstance => {
       },
       (error) => {
         return Promise.reject(error);
-      }
+      },
     );
 
     instance.interceptors.response.use(
       (response) => response,
-      (error) => {
-        // Example: Handle global 401 Unauthorized errors
+      async (error) => {
         if (error?.response?.status === 401) {
-          console.error("Authentication expired or invalid. Prompting re-sign-in...");
-          navigate('/login');
+          console.error(
+            "Authentication expired or invalid. Prompting re-sign-in...",
+          );
+          await signOut();
+          navigate("/login");
         }
         return Promise.reject(error);
-      }
+      },
     );
 
     return instance;
-  }, [getToken, navigate]);
+  }, [getToken, navigate, signOut]);
 
   return client;
 };

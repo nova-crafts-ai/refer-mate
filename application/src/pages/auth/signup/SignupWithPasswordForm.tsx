@@ -43,15 +43,16 @@ const SignupWithPasswordForm = ({
   };
 
   const isLoading = startSignUpWithPassword.isPending;
+  const firstError = Object.values(form.formState.errors)?.[0]?.message;
+  const isFormInvalid =
+    form.formState.isSubmitted && !form.formState.isValid && firstError;
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-      {form.formState.isSubmitted && !form.formState.isValid && (
+      {isFormInvalid && (
         <Alert variant="destructive">
           <AlertCircle className="w-4 h-4" />
-          <AlertTitle>
-            {Object.values(form.formState.errors)?.[0].message}
-          </AlertTitle>
+          <AlertTitle>{firstError}</AlertTitle>
         </Alert>
       )}
       <Controller

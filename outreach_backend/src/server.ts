@@ -41,7 +41,7 @@ app.use(errorHandler);
 // Start the server
 app.listen(PORT, (error) => {
   if (error) {
-    console.log("We ran into an error");
+    console.log("We ran into an error", error);
   } else {
     console.log(`Running on ${PORT}`);
   }

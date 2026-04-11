@@ -153,7 +153,7 @@ export const useAuthActions = () => {
             "Password is not set for this account. Please use a different method to sign in",
           );
         } else {
-          toast.error(err.errors[0].longMessage);
+          toast.error(err.errors[0].longMessage || err.message);
         }
       } else {
         toast.error("Could not sign in. Please try again later.");
@@ -171,8 +171,8 @@ export const useAuthActions = () => {
     },
     onError: (err) => {
       console.error("Failed to start Signup process", err);
-      if (isClerkAPIResponseError(err)) {
-        toast.error(err.longMessage);
+      if (isClerkAPIResponseError(err) && (err.longMessage || err.message)) {
+        toast.error(err.longMessage || err.message);
       } else {
         toast.error("Something went wrong. Please try again later");
       }
@@ -196,8 +196,8 @@ export const useAuthActions = () => {
     },
     onError: (err) => {
       console.error("Failed to sign up", err);
-      if (isClerkAPIResponseError(err)) {
-        toast.error(err.longMessage || "Invalid verification code");
+      if (isClerkAPIResponseError(err) && (err.longMessage || err.message)) {
+        toast.error(err.longMessage || err.message || "Invalid verification code");
       } else {
         toast.error(
           "We are unable to verify you at the moment. Please try again later.",

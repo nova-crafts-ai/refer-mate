@@ -29,20 +29,27 @@ const VerifySignUpCodeForm = () => {
     verifySignUpWithCode.mutate({ code });
   };
 
+  const isLoading = verifySignUpWithCode.isPending;
+  const firstError = Object.values(form.formState.errors)?.[0]?.message;
+  const isFormInvalid =
+    form.formState.isSubmitted && !form.formState.isValid && firstError;
+
   return (
-    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-      {form.formState.isSubmitted && !form.formState.isValid && (
+    <form
+      id="verify-signup-form"
+      onSubmit={form.handleSubmit(onSubmit)}
+      className="space-y-6"
+    >
+      {isFormInvalid && (
         <Alert variant="destructive">
           <AlertCircle className="w-4 h-4" />
-          <AlertTitle>
-            {Object.values(form.formState.errors)?.[0].message}
-          </AlertTitle>
+          <AlertTitle>{firstError}</AlertTitle>
         </Alert>
       )}
       <div className="flex justify-center">
         <Controller
           name="code"
-          disabled={verifySignUpWithCode.isPending}
+          disabled={isLoading}
           control={form.control}
           render={({ field }) => (
             <InputOTP maxLength={6} {...field}>
@@ -61,9 +68,9 @@ const VerifySignUpCodeForm = () => {
       <Button
         type="submit"
         className="w-full h-10 font-medium"
-        disabled={verifySignUpWithCode.isPending}
+        disabled={isLoading}
       >
-        {verifySignUpWithCode.isPending && <Loader className="w-4 h-4 mr-2" />}
+        {isLoading && <Loader className="w-4 h-4 mr-2" />}
         Verify Email
       </Button>
     </form>

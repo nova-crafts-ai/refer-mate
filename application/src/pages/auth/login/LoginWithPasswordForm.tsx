@@ -28,16 +28,14 @@ const LoginWithPasswordForm = () => {
     mode: "all",
   });
 
-  const onSubmit = ({
-    email,
-    password,
-  }: z.infer<typeof loginFormSchema>) => {
+  const onSubmit = ({ email, password }: z.infer<typeof loginFormSchema>) => {
     signInWithPassword.mutate({ email, password });
   };
 
   const isLoading = signInWithPassword.isPending;
-  const firstError = Object.values(form.formState.errors)?.[0]?.message
-  const isFormInvalid = form.formState.isSubmitted && !form.formState.isValid && firstError;
+  const firstError = Object.values(form.formState.errors)?.[0]?.message;
+  const isFormInvalid =
+    form.formState.isSubmitted && !form.formState.isValid && firstError;
 
   return (
     <form
@@ -48,9 +46,7 @@ const LoginWithPasswordForm = () => {
       {isFormInvalid && (
         <Alert variant="destructive">
           <AlertCircle className="w-5 h-5" />
-          <AlertTitle>
-            {firstError}
-          </AlertTitle>
+          <AlertTitle>{firstError}</AlertTitle>
         </Alert>
       )}
       <Controller
