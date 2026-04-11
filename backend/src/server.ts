@@ -3,7 +3,7 @@ import express from "express";
 import cors from "cors";
 import profileRouter from "./routes/profileRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import { clerkMiddleware } from "@clerk/express"
+import { clerkMiddleware } from "@clerk/express";
 import threadRoutes from "./routes/threadRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import { requireAuth } from "./middlleware/requireAuth.js";
@@ -19,18 +19,17 @@ app.use(clerkMiddleware({ debug: process.env.NODE_ENV === "development" }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// TODO : update cors 
-app.use(
-  cors({
-
-  })
-);
+// TODO : update cors
+app.use(cors({}));
 
 // Routers
 app.use("/auth", authRoutes);
 app.use("/profile", requireAuth, rateLimiter, profileRouter);
 app.use("/threads", requireAuth, rateLimiter, threadRoutes);
 app.use("/messages", requireAuth, rateLimiter, messageRoutes);
+app.get("/", (_, res) => {
+  res.send("Server running");
+});
 
 // 404 handler for undefined routes (must be after all route definitions)
 app.use(notFoundHandler);
